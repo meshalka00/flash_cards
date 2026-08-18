@@ -13,65 +13,58 @@
 <link rel="apple-touch-icon" href="./icon-180.png">
 <style>
 :root{
-  --paper:#E6E7E2;
-  --card:#FBFAF7;
-  --ink:#1B1D1E;
-  --rule:#C9CCC3;
-  --der:#2F5FD0;
-  --die:#C0392B;
-  --das:#2E7D5B;
+  --paper:#E6E7E2;--card:#FBFAF7;--ink:#1B1D1E;--rule:#C9CCC3;
+  --der:#2F5FD0;--die:#C0392B;--das:#2E7D5B;--ok:#2E7D5B;--no:#C0392B;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{
-  margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
   padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  overscroll-behavior:none;
-}
+  overscroll-behavior:none}
 .app{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding:14px 16px 20px}
-
 header{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
 h1{font-family:var(--serif);font-size:22px;font-weight:600;margin:0}
 h1 em{font-style:normal;color:var(--die)}
 .counts{font-family:var(--mono);font-size:12px;color:#5E635C}
 
-/* вкладки списков — язычки картотечного ящика */
 .decks{display:flex;gap:4px;overflow-x:auto;margin-top:14px;scrollbar-width:none}
 .decks::-webkit-scrollbar{display:none}
-.tab{
-  flex:0 0 auto;border:1px solid var(--rule);border-bottom:none;background:#DCDDD7;
-  padding:8px 13px;border-radius:5px 5px 0 0;font-size:13px;color:#5E635C;white-space:nowrap;
-}
+.tab{flex:0 0 auto;border:1px solid var(--rule);border-bottom:none;background:#DCDDD7;padding:8px 13px;
+  border-radius:5px 5px 0 0;font-size:13px;color:#5E635C;white-space:nowrap}
 .tab.on{background:var(--card);color:var(--ink);font-weight:600}
 .tab .due{font-family:var(--mono);font-size:11px;color:var(--die);margin-left:6px}
 .tab.icon{padding:8px 12px;font-size:15px;line-height:1}
 
-/* картотека: пять ячеек */
-.kasten{display:flex;gap:5px;border-top:1px solid var(--rule);padding-top:9px;margin-bottom:10px}
-.fach{flex:1;position:relative;height:44px;border:1px solid var(--rule);border-radius:3px;background:#DFE0DA;overflow:hidden}
+.modes{display:flex;gap:5px;overflow-x:auto;border-top:1px solid var(--rule);padding:9px 0 0;scrollbar-width:none}
+.modes::-webkit-scrollbar{display:none}
+.mode{flex:0 0 auto;border:1px solid var(--rule);background:transparent;border-radius:20px;padding:6px 13px;
+  font-size:13px;color:#5E635C;white-space:nowrap}
+.mode.on{background:var(--ink);border-color:var(--ink);color:var(--card)}
+
+.kasten{display:flex;gap:5px;margin:10px 0}
+.fach{flex:1;position:relative;height:38px;border:1px solid var(--rule);border-radius:3px;background:#DFE0DA;overflow:hidden}
 .fach .fill{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--rule);transition:height .35s ease}
-.fach .n{position:absolute;inset:auto 0 3px 0;text-align:center;font-family:var(--mono);font-size:11px;color:#5E635C}
-.fach .lbl{position:absolute;top:3px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:9px;color:#8A8E86}
+.fach .n{position:absolute;inset:auto 0 2px 0;text-align:center;font-family:var(--mono);font-size:11px;color:#5E635C}
+.fach .lbl{position:absolute;top:2px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:9px;color:#8A8E86}
 .fach.active{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
 
-main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:8px 0}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:8px 0}
 
-.card{
-  position:relative;background:var(--card);border:1px solid var(--rule);border-radius:6px;
-  min-height:250px;padding:28px 22px 22px;cursor:pointer;
-  box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 24px -18px rgba(0,0,0,.5);
+.card{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:6px;min-height:230px;
+  padding:26px 22px;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 24px -18px rgba(0,0,0,.5);
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-  background-image:repeating-linear-gradient(to bottom,transparent,transparent 31px,#EEEDE7 31px,#EEEDE7 32px);
-}
+  background-image:repeating-linear-gradient(to bottom,transparent,transparent 31px,#EEEDE7 31px,#EEEDE7 32px)}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:6px 0 0 6px;background:#B9BCB4}
 .card[data-art="der"]::before{background:var(--der)}
 .card[data-art="die"]::before{background:var(--die)}
 .card[data-art="das"]::before{background:var(--das)}
+.card.flat{min-height:0;cursor:default;padding:22px}
 .card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.term{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:600}
+.term{font-family:var(--serif);font-size:29px;line-height:1.25;font-weight:600}
+.term.ru{font-family:var(--sans);font-size:24px;font-weight:500}
 .term .art{color:#7A7E77;font-weight:500}
 .card[data-art="der"] .art{color:var(--der)}
 .card[data-art="die"] .art{color:var(--die)}
@@ -79,20 +72,61 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 .answer{font-size:21px;line-height:1.35;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);width:100%}
 .hint{font-family:var(--mono);font-size:12px;color:#6B6F69;margin-top:10px;line-height:1.5}
 .tap{position:absolute;bottom:10px;left:0;right:0;font-family:var(--mono);font-size:10px;color:#9A9E96;letter-spacing:.06em}
+.qlabel{font-family:var(--mono);font-size:10px;color:#9A9E96;letter-spacing:.06em;margin-bottom:10px}
 
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 button{font:inherit;cursor:pointer}
-.btn{border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);padding:14px 10px;font-size:15px;font-weight:500;transition:background .15s,color .15s}
+.btn{border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);padding:14px 10px;
+  font-size:15px;font-weight:500;transition:background .15s,color .15s}
 .btn:active{background:var(--ink);color:var(--card)}
 .btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .btn.solid{background:var(--ink);color:var(--card)}
 .btn.quiet{border-color:var(--rule);color:#5E635C}
 .btn[disabled]{opacity:.4;cursor:default}
-
 .bar{display:flex;gap:10px;margin-top:16px}
 .bar .btn{flex:1;padding:11px 8px;font-size:13px}
 
-.state{text-align:center;padding:30px 6px}
+/* выбор из вариантов */
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--rule);background:var(--card);border-radius:5px;padding:14px 14px;
+  font-size:16px;color:var(--ink);line-height:1.3}
+.opt .k{font-family:var(--mono);font-size:11px;color:#9A9E96;margin-right:9px}
+.opt.right{border-color:var(--ok);background:#EAF3EE;box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--no);background:#F7EAE8;box-shadow:inset 0 0 0 1px var(--no)}
+.opt[disabled]{opacity:1}
+
+/* ввод ответа */
+.typein{width:100%;border:1px solid var(--rule);border-radius:5px;padding:14px;font-family:var(--serif);
+  font-size:21px;background:#fff;color:var(--ink);text-align:center}
+.typein:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.verdict{text-align:center;font-size:15px;line-height:1.5;min-height:22px}
+.verdict b{font-family:var(--serif);font-size:20px}
+.verdict.ok{color:var(--ok)}
+.verdict.no{color:var(--no)}
+
+/* пары */
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{border:1px solid var(--rule);background:var(--card);border-radius:5px;min-height:64px;padding:10px 8px;
+  font-size:14px;line-height:1.25;color:var(--ink);display:flex;align-items:center;justify-content:center;text-align:center}
+.tile.de{font-family:var(--serif);font-size:16px}
+.tile.sel{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.tile.gone{opacity:0;pointer-events:none;transition:opacity .25s ease}
+.tile.miss{border-color:var(--no)}
+.clock{font-family:var(--mono);font-size:13px;color:#5E635C;text-align:center}
+
+/* тест */
+.progress{display:flex;gap:3px;margin-bottom:4px}
+.pip{flex:1;height:4px;border-radius:2px;background:#D6D8D1}
+.pip.ok{background:var(--ok)}
+.pip.no{background:var(--no)}
+.pip.now{background:var(--ink)}
+.score{font-family:var(--serif);font-size:44px;text-align:center;line-height:1}
+.misslist{list-style:none;margin:14px 0 0;padding:0;text-align:left}
+.misslist li{border-top:1px solid var(--rule);padding:9px 0;font-size:14px;line-height:1.4}
+.misslist .de{font-family:var(--serif);font-size:16px}
+.misslist .yours{color:var(--no);font-family:var(--mono);font-size:12px}
+
+.state{text-align:center;padding:26px 6px}
 .state h2{font-family:var(--serif);font-size:24px;margin:0 0 8px}
 .state p{color:#5E635C;font-size:15px;line-height:1.5;margin:0 auto 20px;max-width:34ch}
 
@@ -101,8 +135,8 @@ dialog::backdrop{background:rgba(20,22,20,.45)}
 .sheet{padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
 .sheet h2{font-family:var(--serif);font-size:20px;margin:0 0 6px}
 .sheet p{font-size:13px;color:#5E635C;line-height:1.5;margin:0 0 12px}
-textarea{width:100%;min-height:160px;border:1px solid var(--rule);border-radius:4px;padding:10px;font-family:var(--mono);font-size:13px;line-height:1.6;background:#fff;color:var(--ink);resize:vertical}
-textarea:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+textarea{width:100%;min-height:150px;border:1px solid var(--rule);border-radius:4px;padding:10px;
+  font-family:var(--mono);font-size:13px;line-height:1.6;background:#fff;color:var(--ink);resize:vertical}
 .row{display:flex;gap:10px;align-items:center;margin:12px 0}
 label{font-size:13px;color:#5E635C}
 select,input[type=text]{font:inherit;font-size:13px;padding:8px;border:1px solid var(--rule);border-radius:4px;background:#fff;color:var(--ink)}
@@ -111,14 +145,12 @@ input[type=text]{flex:1;min-width:0}
 .danger{color:var(--die);border-color:rgba(192,57,43,.4)}
 .mini{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
 .mini .btn{flex:1;padding:9px 6px;font-size:12px}
-
 .dlist{list-style:none;margin:0 0 4px;padding:0}
 .dlist li{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule)}
 .dlist .nm{flex:1;font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dlist .cnt{font-family:var(--mono);font-size:11px;color:#8A8E86}
 .dlist button{border:1px solid var(--rule);background:transparent;border-radius:4px;padding:6px 9px;font-size:12px;color:#5E635C}
-
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -129,13 +161,14 @@ input[type=text]{flex:1;min-width:0}
   </header>
 
   <div class="decks" id="decks"></div>
+  <div class="modes" id="modes"></div>
   <div class="kasten" id="kasten" aria-hidden="true"></div>
 
   <main id="main"></main>
 
   <div class="bar">
     <button class="btn quiet" id="openImport">Добавить слова</button>
-    <button class="btn quiet" id="openAll">Учить все</button>
+    <button class="btn quiet" id="openAll">Начать заново</button>
   </div>
 </div>
 
@@ -176,63 +209,77 @@ die Sendung = передача | senden + -ung"></textarea>
       <input type="text" id="newName" placeholder="Название нового списка" autocomplete="off">
       <button class="btn quiet" id="addDeck">Создать</button>
     </div>
-    <div class="bar">
-      <button class="btn solid" id="closeDecks">Готово</button>
-    </div>
+    <div class="bar"><button class="btn solid" id="closeDecks">Готово</button></div>
   </div>
 </dialog>
 
 <script>
 "use strict";
 const KEY="kartei.v2", OLD="kartei.v1", BOXES=5, DAYS=[0,1,3,7,21], DAY=86400000;
+const MODES=[["cards","Карточки"],["choice","Выбор"],["write","Письмо"],["match","Пары"],["test","Тест"]];
+const TEST_N=10, PAIR_N=6;
 
 let mem=null;
 const store={
   read(k){ try{ const r=localStorage.getItem(k); return r?JSON.parse(r):null; }catch(e){ return k===KEY?mem:null; } },
   write(v){ mem=v; try{ localStorage.setItem(KEY,JSON.stringify(v)); }catch(e){} }
 };
-
-function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function newDeck(name){ return {id:uid(),name:name,cards:[]}; }
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const newDeck=n=>({id:uid(),name:n,cards:[]});
 
 let state=store.read(KEY);
 if(!state){
   const old=store.read(OLD);
   if(old&&old.cards&&old.cards.length){
-    const d=newDeck("Лексика"); d.cards=old.cards;
-    state={decks:[d],active:d.id};
-  } else {
-    const a=newDeck("Датив"), b=newDeck("Аккузатив"), c=newDeck("Лексика");
+    const d=newDeck("Лексика"); d.cards=old.cards; state={decks:[d],active:d.id};
+  }else{
+    const a=newDeck("Датив"),b=newDeck("Аккузатив"),c=newDeck("Лексика");
     state={decks:[a,b,c],active:c.id};
   }
   store.write(state);
 }
 
-let queue=[], current=null, flipped=false;
+let mode="cards";
+let sess={};            // состояние текущего режима
+let tick=null;          // таймер режима «Пары»
+
 const $=id=>document.getElementById(id);
 const main=$("main");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
 
-function deck(){
-  let d=state.decks.find(x=>x.id===state.active);
-  if(!d){ d=state.decks[0]; if(d) state.active=d.id; }
-  return d||null;
-}
+function deck(){ let d=state.decks.find(x=>x.id===state.active); if(!d){ d=state.decks[0]; if(d) state.active=d.id; } return d||null; }
 function dueIn(d){ const now=Date.now(); return d?d.cards.filter(c=>(c.due||0)<=now):[]; }
+function article(f){ const m=/^(der|die|das)\b/i.exec(f.trim()); return m?m[1].toLowerCase():""; }
+function stripArt(f){ return f.replace(/^(der|die|das)\s+/i,"").trim(); }
+function norm(s){
+  return String(s).toLowerCase().replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/[.,!?;:()"'`]/g,"").replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){
+    cur[0]=i;
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
 
-/* ---------- разбор вставленного списка ---------- */
+/* ---------- вставка списка ---------- */
 function parse(text,sep){
   const out=[];
   for(const line of text.split(/\r?\n/)){
     const s=line.trim(); if(!s) continue;
     let use=sep;
     if(sep==="auto"){
-      use = s.includes("\t")?"\t" : s.includes("=")?"=" : s.includes("—")?"—"
-          : s.includes(" - ")?" - " : s.includes(";")?";" : s.includes(",")?"," : null;
+      use=s.includes("\t")?"\t":s.includes("=")?"=":s.includes("—")?"—":s.includes(" - ")?" - ":s.includes(";")?";":s.includes(",")?",":null;
     }
     if(!use) continue;
     const i=s.indexOf(use); if(i<1) continue;
     const front=s.slice(0,i).trim();
-    let rest=s.slice(i+use.length).trim(), hint="";
+    let rest=s.slice(i+use.length).trim(),hint="";
     const bar=rest.indexOf("|");
     if(bar>-1){ hint=rest.slice(bar+1).trim(); rest=rest.slice(0,bar).trim(); }
     if(!front||!rest) continue;
@@ -240,45 +287,56 @@ function parse(text,sep){
   }
   return out;
 }
-
 function addCards(list){
   const d=deck(); if(!d) return 0;
   const seen=new Set(d.cards.map(c=>c.front.toLowerCase()));
   let added=0;
   for(const c of list){
-    const k=c.front.toLowerCase();
-    if(seen.has(k)) continue;
-    seen.add(k);
-    d.cards.push({id:uid(),front:c.front,back:c.back,hint:c.hint,box:1,due:0});
-    added++;
+    const k=c.front.toLowerCase(); if(seen.has(k)) continue;
+    seen.add(k); d.cards.push({id:uid(),front:c.front,back:c.back,hint:c.hint,box:1,due:0}); added++;
   }
+  store.write(state); return added;
+}
+
+/* ---------- прогресс ---------- */
+function grade(cardId,known){
+  const d=deck(); if(!d) return;
+  const card=d.cards.find(c=>c.id===cardId); if(!card) return;
+  card.box=known?Math.min(BOXES,card.box+1):1;
+  card.due=Date.now()+DAYS[card.box-1]*DAY;
   store.write(state);
-  return added;
 }
 
-function article(f){ const m=/^(der|die|das)\b/i.exec(f.trim()); return m?m[1].toLowerCase():""; }
-
-function buildQueue(all){
+/* ---------- запуск режима ---------- */
+function startMode(all){
+  clearInterval(tick); tick=null;
   const d=deck();
-  const pool=d?(all?d.cards.slice():dueIn(d)):[];
-  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-  queue=pool; next();
-}
-function next(){ flipped=false; current=queue.shift()||null; render(); }
-
-function grade(known){
-  const d=deck(); if(!current||!d) return;
-  const card=d.cards.find(c=>c.id===current.id);
-  if(card){
-    card.box=known?Math.min(BOXES,card.box+1):1;
-    card.due=Date.now()+DAYS[card.box-1]*DAY;
-    if(!known) queue.push(card);
-    store.write(state);
+  const pool=d?(all?d.cards.slice():(dueIn(d).length?dueIn(d):d.cards.slice())):[];
+  shuffle(pool);
+  if(mode==="cards"||mode==="choice"||mode==="write"){
+    sess={queue:pool,current:pool.shift()||null,flipped:false,answered:false};
+  }else if(mode==="match"){
+    const picked=pool.slice(0,PAIR_N);
+    const tiles=[];
+    picked.forEach(c=>{ tiles.push({cid:c.id,side:"de",text:c.front}); tiles.push({cid:c.id,side:"ru",text:c.back}); });
+    sess={pairs:picked,tiles:shuffle(tiles),sel:null,left:picked.length,t0:Date.now(),elapsed:0,done:false};
+  }else if(mode==="test"){
+    const items=pool.slice(0,TEST_N).map((c,i)=>({card:c,kind:i%2?"write":"choice"}));
+    sess={items,i:0,answers:[],done:false,answered:false};
   }
-  next();
+  render();
 }
 
-/* ---------- отрисовка ---------- */
+/* ---------- варианты для «Выбора» ---------- */
+function options(card,fromDeck){
+  const others=fromDeck.cards.filter(c=>c.id!==card.id);
+  shuffle(others);
+  const picks=[card.back];
+  for(const o of others){ if(picks.length>=4) break; if(!picks.some(p=>norm(p)===norm(o.back))) picks.push(o.back); }
+  return shuffle(picks);
+}
+
+/* ---------- отрисовка каркаса ---------- */
 function renderTabs(){
   const bar=$("decks"); bar.innerHTML="";
   for(const d of state.decks){
@@ -286,158 +344,328 @@ function renderTabs(){
     const b=document.createElement("button");
     b.className="tab"+(d.id===state.active?" on":"");
     b.innerHTML=esc(d.name)+(n?'<span class="due">'+n+'</span>':'');
-    b.onclick=()=>{ state.active=d.id; store.write(state); buildQueue(false); if(!current) buildQueue(true); };
+    b.onclick=()=>{ state.active=d.id; store.write(state); startMode(false); };
     bar.appendChild(b);
   }
   const plus=document.createElement("button");
-  plus.className="tab icon"; plus.textContent="＋"; plus.title="Списки";
-  plus.onclick=openDecks;
+  plus.className="tab icon"; plus.textContent="＋"; plus.onclick=openDecks;
   bar.appendChild(plus);
 }
-
+function renderModes(){
+  const bar=$("modes"); bar.innerHTML="";
+  for(const [id,name] of MODES){
+    const b=document.createElement("button");
+    b.className="mode"+(id===mode?" on":"");
+    b.textContent=name;
+    b.onclick=()=>{ mode=id; startMode(false); };
+    bar.appendChild(b);
+  }
+}
 function renderKasten(){
-  const d=deck(), k=$("kasten"); k.innerHTML="";
+  const d=deck(),k=$("kasten");
+  if(mode==="match"||mode==="test"){ k.style.display="none"; return; }
+  k.style.display="flex"; k.innerHTML="";
   const cards=d?d.cards:[];
   const max=Math.max(1,...[1,2,3,4,5].map(b=>cards.filter(c=>c.box===b).length));
   for(let b=1;b<=BOXES;b++){
     const n=cards.filter(c=>c.box===b).length;
     const el=document.createElement("div");
-    el.className="fach"+(current&&current.box===b?" active":"");
+    el.className="fach"+(sess.current&&sess.current.box===b?" active":"");
     el.innerHTML='<div class="fill" style="height:'+Math.round(n/max*78)+'%"></div><div class="lbl">'+b+'</div><div class="n">'+n+'</div>';
     k.appendChild(el);
   }
 }
-
 function renderCounts(){
-  const d=deck();
-  const total=d?d.cards.length:0, n=dueIn(d).length;
+  const d=deck(); const total=d?d.cards.length:0,n=dueIn(d).length;
   $("counts").textContent=total?(n+" к повторению · "+total+" в списке"):"";
 }
 
-function render(){
-  renderTabs(); renderCounts(); renderKasten();
-  const d=deck();
-
-  if(!d){
-    main.innerHTML='<div class="state"><h2>Нет списков</h2><p>Создайте первый список — например, «Аккузатив» или лексику главы.</p><button class="btn solid" id="firstDeck">Создать список</button></div>';
-    $("firstDeck").onclick=openDecks; return;
-  }
-  if(!d.cards.length){
-    main.innerHTML='<div class="state"><h2>«'+esc(d.name)+'» пуст</h2><p>Вставьте список слов — приложение разложит их по карточкам и будет возвращать забытые чаще.</p><button class="btn solid" id="firstAdd">Вставить список</button></div>';
-    $("firstAdd").onclick=openSheet; return;
-  }
-  if(!current){
-    main.innerHTML='<div class="state"><h2>На сегодня всё</h2><p>В этом списке повторять пока нечего. Карточки вернутся по расписанию — или пройдите его целиком ещё раз.</p><button class="btn solid" id="again">Учить все</button></div>';
-    $("again").onclick=()=>buildQueue(true); return;
-  }
-
-  const art=article(current.front);
-  const head=art?'<span class="art">'+esc(current.front.slice(0,art.length))+'</span>'+esc(current.front.slice(art.length)):esc(current.front);
-
-  main.innerHTML=
-    '<div class="card" id="card" data-art="'+art+'" tabindex="0" role="button" aria-label="Показать перевод">'+
-      '<div class="term">'+head+'</div>'+
-      (flipped?'<div class="answer">'+esc(current.back)+'</div>'+(current.hint?'<div class="hint">'+esc(current.hint)+'</div>':'')
-              :'<div class="tap">НАЖМИТЕ, ЧТОБЫ ПРОВЕРИТЬ</div>')+
-    '</div>'+
-    '<div class="grade">'+
-      '<button class="btn" id="bad" '+(flipped?"":"disabled")+'>Не помню</button>'+
-      '<button class="btn solid" id="good" '+(flipped?"":"disabled")+'>Помню</button>'+
-    '</div>';
-
-  const card=$("card");
-  card.onclick=flip;
-  card.onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } };
-  if(flipped){ $("bad").onclick=()=>grade(false); $("good").onclick=()=>grade(true); }
+function head(card){
+  const art=article(card.front);
+  return art?'<span class="art">'+esc(card.front.slice(0,art.length))+'</span>'+esc(card.front.slice(art.length)):esc(card.front);
+}
+function stateBox(title,text,btn,fn){
+  main.innerHTML='<div class="state"><h2>'+title+'</h2><p>'+text+'</p>'+(btn?'<button class="btn solid" id="sb">'+btn+'</button>':'')+'</div>';
+  if(btn) $("sb").onclick=fn;
 }
 
-function flip(){ if(!flipped){ flipped=true; render(); } }
-function esc(s){ return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+/* ---------- главный рендер ---------- */
+function render(){
+  renderTabs(); renderModes(); renderCounts(); renderKasten();
+  const d=deck();
+  if(!d){ stateBox("Нет списков","Создайте первый список — например, «Аккузатив» или лексику главы.","Создать список",openDecks); return; }
+  if(!d.cards.length){ stateBox("«"+esc(d.name)+"» пуст","Вставьте список слов — приложение разложит их по карточкам.","Вставить список",openSheet); return; }
+  if(mode==="cards") return renderCards();
+  if(mode==="choice") return renderChoice(d);
+  if(mode==="write") return renderWrite();
+  if(mode==="match") return renderMatch();
+  if(mode==="test") return renderTest(d);
+}
 
-/* ---------- лист вставки ---------- */
+/* режим 1: карточки */
+function renderCards(){
+  const c=sess.current;
+  if(!c) return stateBox("На сегодня всё","Повторять в этом списке пока нечего. Карточки вернутся по расписанию.","Пройти список заново",()=>startMode(true));
+  main.innerHTML=
+    '<div class="card" id="card" data-art="'+article(c.front)+'" tabindex="0" role="button">'+
+      '<div class="term">'+head(c)+'</div>'+
+      (sess.flipped?'<div class="answer">'+esc(c.back)+'</div>'+(c.hint?'<div class="hint">'+esc(c.hint)+'</div>':'')
+                   :'<div class="tap">НАЖМИТЕ, ЧТОБЫ ПРОВЕРИТЬ</div>')+
+    '</div>'+
+    '<div class="grade">'+
+      '<button class="btn" id="bad" '+(sess.flipped?"":"disabled")+'>Не помню</button>'+
+      '<button class="btn solid" id="good" '+(sess.flipped?"":"disabled")+'>Помню</button>'+
+    '</div>';
+  const flip=()=>{ if(!sess.flipped){ sess.flipped=true; render(); } };
+  $("card").onclick=flip;
+  $("card").onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } };
+  if(sess.flipped){
+    $("bad").onclick=()=>{ grade(c.id,false); sess.queue.push(c); step(); };
+    $("good").onclick=()=>{ grade(c.id,true); step(); };
+  }
+}
+function step(){ sess.flipped=false; sess.answered=false; sess.current=sess.queue.shift()||null; render(); }
+
+/* режим 2: выбор из вариантов */
+function renderChoice(d){
+  const c=sess.current;
+  if(!c) return stateBox("Круг пройден","Все слова из очереди отработаны.","Ещё раз",()=>startMode(true));
+  if(d.cards.length<2) return stateBox("Мало слов","Для режима «Выбор» нужно хотя бы два слова в списке.","Добавить слова",openSheet);
+  if(!sess.opts) sess.opts=options(c,d);
+  const letters=["A","B","C","D"];
+  const done=sess.answered;
+  main.innerHTML=
+    '<div class="card flat" data-art="'+article(c.front)+'">'+
+      '<div class="qlabel">ВЫБЕРИТЕ ПЕРЕВОД</div><div class="term">'+head(c)+'</div></div>'+
+    '<div class="opts" id="opts">'+sess.opts.map((o,i)=>{
+      let cls="opt";
+      if(done){
+        if(norm(o)===norm(c.back)) cls+=" right";
+        else if(i===sess.pick) cls+=" wrong";
+      }
+      return '<button class="'+cls+'" data-i="'+i+'"'+(done?" disabled":"")+'><span class="k">'+letters[i]+'</span>'+esc(o)+'</button>';
+    }).join("")+'</div>'+
+    (done?'<div class="bar"><button class="btn solid" id="nx">Дальше</button></div>':'');
+  if(done){
+    $("nx").onclick=()=>{ sess.opts=null; sess.pick=null; step(); };
+    return;
+  }
+  [...$("opts").children].forEach(btn=>{
+    btn.onclick=()=>{
+      if(sess.answered) return;
+      const i=+btn.dataset.i;
+      const right=norm(sess.opts[i])===norm(c.back);
+      sess.answered=true; sess.pick=i;
+      grade(c.id,right);
+      if(!right) sess.queue.push(c);
+      render();
+    };
+  });
+}
+
+/* режим 3: письмо */
+function renderWrite(){
+  const c=sess.current;
+  if(!c) return stateBox("Круг пройден","Все слова из очереди отработаны.","Ещё раз",()=>startMode(true));
+  main.innerHTML=
+    '<div class="card flat"><div class="qlabel">НАПИШИТЕ ПО-НЕМЕЦКИ</div><div class="term ru">'+esc(c.back)+'</div></div>'+
+    '<input class="typein" id="typein" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="слово с артиклем">'+
+    '<div class="verdict" id="verdict"></div>'+
+    '<div class="bar"><button class="btn quiet" id="skip">Не знаю</button><button class="btn solid" id="check">Проверить</button></div>';
+  const inp=$("typein");
+  const finish=(ok,msg)=>{
+    sess.answered=true;
+    grade(c.id,ok);
+    if(!ok) sess.queue.push(c);
+    const v=$("verdict"); v.className="verdict "+(ok?"ok":"no"); v.innerHTML=msg;
+    inp.disabled=true;
+    $("check").textContent="Дальше";
+    $("check").onclick=step;
+    $("skip").onclick=step;
+  };
+  const check=()=>{
+    if(sess.answered) return step();
+    const val=inp.value.trim();
+    if(!val) return;
+    const full=norm(c.front), bare=norm(stripArt(c.front)), got=norm(val);
+    if(got===full) return finish(true,"Верно — <b>"+esc(c.front)+"</b>");
+    if(got===bare) return finish(true,"Верно, но без артикля: <b>"+esc(c.front)+"</b>");
+    if(lev(got,full)<=1||lev(got,bare)<=1) return finish(true,"Почти — правильно <b>"+esc(c.front)+"</b>");
+    finish(false,"Нет — <b>"+esc(c.front)+"</b>");
+  };
+  $("check").onclick=check;
+  $("skip").onclick=()=>{ if(sess.answered) return step(); finish(false,"Ответ: <b>"+esc(c.front)+"</b>"); };
+  inp.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); check(); } };
+  setTimeout(()=>inp.focus(),50);
+}
+
+/* режим 4: пары на время */
+function renderMatch(){
+  const d=deck();
+  if(d.cards.length<3) return stateBox("Мало слов","Для режима «Пары» нужно хотя бы три слова в списке.","Добавить слова",openSheet);
+  if(sess.done){
+    const best=d.best?Math.min(d.best,sess.elapsed):sess.elapsed;
+    if(best!==d.best){ d.best=best; store.write(state); }
+    return stateBox("Готово за "+(sess.elapsed/1000).toFixed(1)+" с",
+      "Лучшее время для этого списка — "+(d.best/1000).toFixed(1)+" с.","Ещё раз",()=>startMode(false));
+  }
+  main.innerHTML='<div class="clock" id="clock">0.0 с · осталось пар: '+sess.left+'</div>'+
+    '<div class="pairs" id="pairs">'+sess.tiles.map((t,i)=>
+      '<button class="tile '+(t.side==="de"?"de":"")+'" data-i="'+i+'">'+esc(t.text)+'</button>').join("")+'</div>';
+  const tiles=[...$("pairs").children];
+  clearInterval(tick);
+  tick=setInterval(()=>{
+    if(sess.done) return clearInterval(tick);
+    const el=$("clock"); if(!el) return clearInterval(tick);
+    el.textContent=((Date.now()-sess.t0)/1000).toFixed(1)+" с · осталось пар: "+sess.left;
+  },100);
+  tiles.forEach(btn=>{
+    btn.onclick=()=>{
+      const i=+btn.dataset.i, t=sess.tiles[i];
+      if(btn.classList.contains("gone")) return;
+      if(sess.sel===null){ sess.sel=i; btn.classList.add("sel"); return; }
+      if(sess.sel===i){ sess.sel=null; btn.classList.remove("sel"); return; }
+      const prev=sess.tiles[sess.sel], prevBtn=tiles[sess.sel];
+      if(prev.cid===t.cid&&prev.side!==t.side){
+        prevBtn.classList.add("gone"); btn.classList.add("gone");
+        prevBtn.classList.remove("sel"); sess.sel=null; sess.left--;
+        if(sess.left===0){
+          sess.elapsed=Date.now()-sess.t0; sess.done=true; clearInterval(tick); setTimeout(render,300);
+        }else{ $("clock").textContent=((Date.now()-sess.t0)/1000).toFixed(1)+" с · осталось пар: "+sess.left; }
+      }else{
+        btn.classList.add("miss"); prevBtn.classList.add("miss");
+        const a=prevBtn,b=btn; sess.sel=null;
+        setTimeout(()=>{ a.classList.remove("miss","sel"); b.classList.remove("miss"); },400);
+      }
+    };
+  });
+}
+
+/* режим 5: тест */
+function renderTest(d){
+  if(!sess.items||!sess.items.length) return stateBox("Мало слов","Для теста нужны слова в списке.","Добавить слова",openSheet);
+  if(sess.done){
+    const right=sess.answers.filter(a=>a.ok).length;
+    const miss=sess.answers.filter(a=>!a.ok);
+    main.innerHTML='<div class="state"><div class="score">'+right+"/"+sess.answers.length+'</div>'+
+      '<p style="margin-top:10px">'+(miss.length?"Ошибки вернулись в первую ячейку картотеки.":"Без единой ошибки.")+'</p>'+
+      (miss.length?'<ul class="misslist">'+miss.map(a=>
+        '<li><span class="de">'+esc(a.front)+'</span> — '+esc(a.back)+
+        (a.typed?'<br><span class="yours">вы: '+esc(a.typed)+'</span>':'')+'</li>').join("")+'</ul>':'')+
+      '<div class="bar"><button class="btn solid" id="again">Новый тест</button></div></div>';
+    $("again").onclick=()=>startMode(false);
+    return;
+  }
+  const it=sess.items[sess.i], c=it.card;
+  const pips=sess.items.map((_,i)=>{
+    const a=sess.answers[i];
+    return '<div class="pip'+(a?(a.ok?" ok":" no"):(i===sess.i?" now":""))+'"></div>';
+  }).join("");
+
+  if(it.kind==="choice"){
+    if(!sess.opts) sess.opts=options(c,d);
+    const letters=["A","B","C","D"];
+    main.innerHTML='<div class="progress">'+pips+'</div>'+
+      '<div class="card flat" data-art="'+article(c.front)+'"><div class="qlabel">ВОПРОС '+(sess.i+1)+' ИЗ '+sess.items.length+'</div><div class="term">'+head(c)+'</div></div>'+
+      '<div class="opts" id="opts">'+sess.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+letters[i]+'</span>'+esc(o)+'</button>').join("")+'</div>';
+    [...$("opts").children].forEach(btn=>{
+      btn.onclick=()=>{
+        const chosen=sess.opts[+btn.dataset.i];
+        const ok=norm(chosen)===norm(c.back);
+        grade(c.id,ok);
+        sess.answers.push({ok,front:c.front,back:c.back,typed:ok?"":chosen});
+        sess.opts=null; sess.i++;
+        if(sess.i>=sess.items.length) sess.done=true;
+        render();
+      };
+    });
+  }else{
+    main.innerHTML='<div class="progress">'+pips+'</div>'+
+      '<div class="card flat"><div class="qlabel">ВОПРОС '+(sess.i+1)+' ИЗ '+sess.items.length+' · НАПИШИТЕ ПО-НЕМЕЦКИ</div><div class="term ru">'+esc(c.back)+'</div></div>'+
+      '<input class="typein" id="typein" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">'+
+      '<div class="bar"><button class="btn quiet" id="skip">Пропустить</button><button class="btn solid" id="check">Ответить</button></div>';
+    const inp=$("typein");
+    const submit=()=>{
+      const val=inp.value.trim();
+      const full=norm(c.front), bare=norm(stripArt(c.front)), got=norm(val);
+      const ok=!!val&&(got===full||got===bare||lev(got,full)<=1||lev(got,bare)<=1);
+      grade(c.id,ok);
+      sess.answers.push({ok,front:c.front,back:c.back,typed:ok?"":val});
+      sess.i++;
+      if(sess.i>=sess.items.length) sess.done=true;
+      render();
+    };
+    $("check").onclick=submit;
+    $("skip").onclick=()=>{ inp.value=""; submit(); };
+    inp.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } };
+    setTimeout(()=>inp.focus(),50);
+  }
+}
+
+/* ---------- листы ---------- */
 const sheet=$("sheet");
 function openSheet(){
-  const d=deck(); if(!d){ openDecks(); return; }
+  const d=deck(); if(!d) return openDecks();
   $("target").textContent="В список «"+d.name+"». Одна пара в строке: слово, разделитель, перевод. После перевода можно дописать « | разбор ».";
-  $("preview").textContent="";
-  sheet.showModal();
+  $("preview").textContent=""; sheet.showModal();
 }
 $("openImport").onclick=openSheet;
 $("cancelImport").onclick=()=>sheet.close();
-$("openAll").onclick=()=>buildQueue(true);
-
+$("openAll").onclick=()=>startMode(true);
 $("paste").oninput=$("sep").onchange=()=>{
   const n=parse($("paste").value,$("sep").value).length;
   $("preview").textContent=n?n+" карточек":"";
 };
-
 $("doImport").onclick=()=>{
   const list=parse($("paste").value,$("sep").value);
   if(!list.length){ $("preview").textContent="Строки не разобрались — смените разделитель"; return; }
   const added=addCards(list);
-  $("paste").value=""; sheet.close();
-  buildQueue(false); if(!current) buildQueue(true);
+  $("paste").value=""; sheet.close(); startMode(false);
   $("counts").textContent="добавлено: "+added;
   setTimeout(renderCounts,2500);
 };
-
 $("copyAll").onclick=async()=>{
   const d=deck(); if(!d) return;
   const text=d.cards.map(c=>c.front+"\t"+c.back+(c.hint?" | "+c.hint:"")).join("\n");
   try{ await navigator.clipboard.writeText(text); $("preview").textContent="скопировано"; }
   catch(e){ $("paste").value=text; $("preview").textContent="скопируйте из поля вручную"; }
 };
-
 $("wipe").onclick=()=>{
   const d=deck(); if(!d) return;
   if(!confirm("Удалить все карточки списка «"+d.name+"»? Сам список останется.")) return;
-  d.cards=[]; store.write(state);
-  queue=[]; current=null; sheet.close(); render();
+  d.cards=[]; store.write(state); sheet.close(); startMode(false);
 };
 
-/* ---------- лист списков ---------- */
 const dsheet=$("dsheet");
 function openDecks(){ renderDeckList(); dsheet.showModal(); }
 $("closeDecks").onclick=()=>dsheet.close();
-
 function renderDeckList(){
   const ul=$("dlist"); ul.innerHTML="";
   for(const d of state.decks){
     const li=document.createElement("li");
-    const nm=document.createElement("span");
-    nm.className="nm"; nm.textContent=d.name;
-    const cnt=document.createElement("span");
-    cnt.className="cnt"; cnt.textContent=d.cards.length;
+    const nm=document.createElement("span"); nm.className="nm"; nm.textContent=d.name;
+    const cnt=document.createElement("span"); cnt.className="cnt"; cnt.textContent=d.cards.length;
     const ren=document.createElement("button"); ren.textContent="Имя";
-    ren.onclick=()=>{
-      const v=prompt("Новое название списка:",d.name);
-      if(v&&v.trim()){ d.name=v.trim(); store.write(state); renderDeckList(); render(); }
-    };
+    ren.onclick=()=>{ const v=prompt("Новое название списка:",d.name); if(v&&v.trim()){ d.name=v.trim(); store.write(state); renderDeckList(); render(); } };
     const del=document.createElement("button"); del.textContent="Удалить"; del.className="danger";
     del.onclick=()=>{
       if(!confirm("Удалить список «"+d.name+"» вместе с карточками?")) return;
       state.decks=state.decks.filter(x=>x.id!==d.id);
       if(state.active===d.id) state.active=state.decks[0]?state.decks[0].id:null;
-      store.write(state); renderDeckList(); buildQueue(false); if(!current) buildQueue(true);
+      store.write(state); renderDeckList(); startMode(false);
     };
     li.append(nm,cnt,ren,del); ul.appendChild(li);
   }
 }
-
 $("addDeck").onclick=()=>{
   const v=$("newName").value.trim(); if(!v) return;
-  const d=newDeck(v);
-  state.decks.push(d); state.active=d.id;
-  store.write(state); $("newName").value="";
-  renderDeckList(); buildQueue(false); render();
+  const d=newDeck(v); state.decks.push(d); state.active=d.id;
+  store.write(state); $("newName").value=""; renderDeckList(); startMode(false);
 };
 $("newName").onkeydown=e=>{ if(e.key==="Enter") $("addDeck").click(); };
 
 /* ---------- старт ---------- */
-buildQueue(false);
-if(!current&&deck()&&deck().cards.length) buildQueue(true);
-render();
-
+startMode(false);
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
