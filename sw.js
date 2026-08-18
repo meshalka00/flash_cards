@@ -1,4 +1,4 @@
-const CACHE = "kartei-v1";
+const CACHE = "kartei-v2";
 const FILES = ["./", "./index.html", "./app.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {

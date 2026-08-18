@@ -16,32 +16,41 @@
   --paper:#E6E7E2;
   --card:#FBFAF7;
   --ink:#1B1D1E;
-  --muted:#6B6F69;
   --rule:#C9CCC3;
   --der:#2F5FD0;
   --die:#C0392B;
   --das:#2E7D5B;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--sans);
+  margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
   padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   overscroll-behavior:none;
 }
 .app{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding:14px 16px 20px}
 
 header{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-h1{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.01em;margin:0}
+h1{font-family:var(--serif);font-size:22px;font-weight:600;margin:0}
 h1 em{font-style:normal;color:var(--die)}
-.counts{font-family:var(--mono);font-size:12px;color:#5E635C;letter-spacing:.02em}
+.counts{font-family:var(--mono);font-size:12px;color:#5E635C}
 
-/* Karteikasten: five compartments, the signature element */
-.kasten{display:flex;gap:5px;margin:16px 0 10px}
+/* вкладки списков — язычки картотечного ящика */
+.decks{display:flex;gap:4px;overflow-x:auto;margin-top:14px;scrollbar-width:none}
+.decks::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;border:1px solid var(--rule);border-bottom:none;background:#DCDDD7;
+  padding:8px 13px;border-radius:5px 5px 0 0;font-size:13px;color:#5E635C;white-space:nowrap;
+}
+.tab.on{background:var(--card);color:var(--ink);font-weight:600}
+.tab .due{font-family:var(--mono);font-size:11px;color:var(--die);margin-left:6px}
+.tab.icon{padding:8px 12px;font-size:15px;line-height:1}
+
+/* картотека: пять ячеек */
+.kasten{display:flex;gap:5px;border-top:1px solid var(--rule);padding-top:9px;margin-bottom:10px}
 .fach{flex:1;position:relative;height:44px;border:1px solid var(--rule);border-radius:3px;background:#DFE0DA;overflow:hidden}
 .fach .fill{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--rule);transition:height .35s ease}
 .fach .n{position:absolute;inset:auto 0 3px 0;text-align:center;font-family:var(--mono);font-size:11px;color:#5E635C}
@@ -53,7 +62,7 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 .card{
   position:relative;background:var(--card);border:1px solid var(--rule);border-radius:6px;
   min-height:250px;padding:28px 22px 22px;cursor:pointer;
-  box-shadow:0 1px 0 rgba(0,0,0,.05), 0 10px 24px -18px rgba(0,0,0,.5);
+  box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 24px -18px rgba(0,0,0,.5);
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
   background-image:repeating-linear-gradient(to bottom,transparent,transparent 31px,#EEEDE7 31px,#EEEDE7 32px);
 }
@@ -73,10 +82,7 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 button{font:inherit;cursor:pointer}
-.btn{
-  border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);
-  padding:14px 10px;font-size:15px;font-weight:500;transition:background .15s,color .15s;
-}
+.btn{border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);padding:14px 10px;font-size:15px;font-weight:500;transition:background .15s,color .15s}
 .btn:active{background:var(--ink);color:var(--card)}
 .btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .btn.solid{background:var(--ink);color:var(--card)}
@@ -90,30 +96,29 @@ button{font:inherit;cursor:pointer}
 .state h2{font-family:var(--serif);font-size:24px;margin:0 0 8px}
 .state p{color:#5E635C;font-size:15px;line-height:1.5;margin:0 auto 20px;max-width:34ch}
 
-/* import sheet */
-dialog{
-  border:none;border-radius:10px 10px 0 0;padding:0;width:100%;max-width:560px;
-  margin:auto auto 0;background:var(--card);color:var(--ink);
-}
+dialog{border:none;border-radius:10px 10px 0 0;padding:0;width:100%;max-width:560px;margin:auto auto 0;background:var(--card);color:var(--ink)}
 dialog::backdrop{background:rgba(20,22,20,.45)}
 .sheet{padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
 .sheet h2{font-family:var(--serif);font-size:20px;margin:0 0 6px}
 .sheet p{font-size:13px;color:#5E635C;line-height:1.5;margin:0 0 12px}
-textarea{
-  width:100%;min-height:170px;border:1px solid var(--rule);border-radius:4px;padding:10px;
-  font-family:var(--mono);font-size:13px;line-height:1.6;background:#fff;color:var(--ink);resize:vertical;
-}
+textarea{width:100%;min-height:160px;border:1px solid var(--rule);border-radius:4px;padding:10px;font-family:var(--mono);font-size:13px;line-height:1.6;background:#fff;color:var(--ink);resize:vertical}
 textarea:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
 .row{display:flex;gap:10px;align-items:center;margin:12px 0}
 label{font-size:13px;color:#5E635C}
-select{font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--rule);border-radius:4px;background:#fff;color:var(--ink)}
+select,input[type=text]{font:inherit;font-size:13px;padding:8px;border:1px solid var(--rule);border-radius:4px;background:#fff;color:var(--ink)}
+input[type=text]{flex:1;min-width:0}
 .note{font-family:var(--mono);font-size:12px;color:#5E635C;min-height:18px}
 .danger{color:var(--die);border-color:rgba(192,57,43,.4)}
-.sheet .bar{margin-top:14px}
 .mini{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
 .mini .btn{flex:1;padding:9px 6px;font-size:12px}
 
-@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.dlist{list-style:none;margin:0 0 4px;padding:0}
+.dlist li{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.dlist .nm{flex:1;font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dlist .cnt{font-family:var(--mono);font-size:11px;color:#8A8E86}
+.dlist button{border:1px solid var(--rule);background:transparent;border-radius:4px;padding:6px 9px;font-size:12px;color:#5E635C}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -123,6 +128,7 @@ select{font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--rule);
     <div class="counts" id="counts"></div>
   </header>
 
+  <div class="decks" id="decks"></div>
   <div class="kasten" id="kasten" aria-hidden="true"></div>
 
   <main id="main"></main>
@@ -136,7 +142,7 @@ select{font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--rule);
 <dialog id="sheet">
   <div class="sheet">
     <h2>Добавить слова</h2>
-    <p>Вставьте список: слово, разделитель, перевод — по одной паре в строке. После перевода можно добавить « | разбор ».</p>
+    <p id="target"></p>
     <textarea id="paste" placeholder="der Rundfunk = радиовещание | Rund + Funk
 die Sendung = передача | senden + -ung"></textarea>
     <div class="row">
@@ -156,240 +162,284 @@ die Sendung = передача | senden + -ung"></textarea>
       <button class="btn solid" id="doImport">Добавить</button>
     </div>
     <div class="mini">
-      <button class="btn quiet" id="copyAll">Скопировать все слова</button>
-      <button class="btn quiet danger" id="wipe">Удалить всё</button>
+      <button class="btn quiet" id="copyAll">Скопировать список</button>
+      <button class="btn quiet danger" id="wipe">Очистить список</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="dsheet">
+  <div class="sheet">
+    <h2>Списки</h2>
+    <ul class="dlist" id="dlist"></ul>
+    <div class="row">
+      <input type="text" id="newName" placeholder="Название нового списка" autocomplete="off">
+      <button class="btn quiet" id="addDeck">Создать</button>
+    </div>
+    <div class="bar">
+      <button class="btn solid" id="closeDecks">Готово</button>
     </div>
   </div>
 </dialog>
 
 <script>
 "use strict";
-const KEY = "kartei.v1";
-const BOXES = 5;
-const DAYS = [0, 1, 3, 7, 21];      // интервал повторения для коробок 1..5
-const DAY = 86400000;
+const KEY="kartei.v2", OLD="kartei.v1", BOXES=5, DAYS=[0,1,3,7,21], DAY=86400000;
 
-let mem = null;                      // запасное хранилище, если localStorage закрыт
-const store = {
-  read(){
-    try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; }
-    catch(e){ return mem; }
-  },
-  write(v){
-    mem = v;
-    try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){}
-  }
+let mem=null;
+const store={
+  read(k){ try{ const r=localStorage.getItem(k); return r?JSON.parse(r):null; }catch(e){ return k===KEY?mem:null; } },
+  write(v){ mem=v; try{ localStorage.setItem(KEY,JSON.stringify(v)); }catch(e){} }
 };
 
-let state = store.read() || { cards: [] };
-let queue = [];
-let current = null;
-let flipped = false;
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function newDeck(name){ return {id:uid(),name:name,cards:[]}; }
 
-const $ = id => document.getElementById(id);
-const main = $("main");
+let state=store.read(KEY);
+if(!state){
+  const old=store.read(OLD);
+  if(old&&old.cards&&old.cards.length){
+    const d=newDeck("Лексика"); d.cards=old.cards;
+    state={decks:[d],active:d.id};
+  } else {
+    const a=newDeck("Датив"), b=newDeck("Аккузатив"), c=newDeck("Лексика");
+    state={decks:[a,b,c],active:c.id};
+  }
+  store.write(state);
+}
 
-/* ---------- данные ---------- */
+let queue=[], current=null, flipped=false;
+const $=id=>document.getElementById(id);
+const main=$("main");
 
-function parse(text, sep){
-  const out = [];
-  for (const line of text.split(/\r?\n/)){
-    const s = line.trim();
-    if (!s) continue;
-    let use = sep;
-    if (sep === "auto"){
-      use = s.includes("\t") ? "\t"
-          : s.includes("=") ? "="
-          : s.includes("—") ? "—"
-          : s.includes(" - ") ? " - "
-          : s.includes(";") ? ";"
-          : s.includes(",") ? "," : null;
+function deck(){
+  let d=state.decks.find(x=>x.id===state.active);
+  if(!d){ d=state.decks[0]; if(d) state.active=d.id; }
+  return d||null;
+}
+function dueIn(d){ const now=Date.now(); return d?d.cards.filter(c=>(c.due||0)<=now):[]; }
+
+/* ---------- разбор вставленного списка ---------- */
+function parse(text,sep){
+  const out=[];
+  for(const line of text.split(/\r?\n/)){
+    const s=line.trim(); if(!s) continue;
+    let use=sep;
+    if(sep==="auto"){
+      use = s.includes("\t")?"\t" : s.includes("=")?"=" : s.includes("—")?"—"
+          : s.includes(" - ")?" - " : s.includes(";")?";" : s.includes(",")?"," : null;
     }
-    if (!use) continue;
-    const i = s.indexOf(use);
-    if (i < 1) continue;
-    const front = s.slice(0, i).trim();
-    let rest = s.slice(i + use.length).trim();
-    let hint = "";
-    const bar = rest.indexOf("|");
-    if (bar > -1){ hint = rest.slice(bar + 1).trim(); rest = rest.slice(0, bar).trim(); }
-    if (!front || !rest) continue;
-    out.push({ front, back: rest, hint });
+    if(!use) continue;
+    const i=s.indexOf(use); if(i<1) continue;
+    const front=s.slice(0,i).trim();
+    let rest=s.slice(i+use.length).trim(), hint="";
+    const bar=rest.indexOf("|");
+    if(bar>-1){ hint=rest.slice(bar+1).trim(); rest=rest.slice(0,bar).trim(); }
+    if(!front||!rest) continue;
+    out.push({front,back:rest,hint});
   }
   return out;
 }
 
 function addCards(list){
-  const seen = new Set(state.cards.map(c => c.front.toLowerCase()));
-  let added = 0;
-  for (const c of list){
-    if (seen.has(c.front.toLowerCase())) continue;
-    seen.add(c.front.toLowerCase());
-    state.cards.push({ id: Date.now() + "-" + Math.random().toString(36).slice(2,7),
-                       front: c.front, back: c.back, hint: c.hint, box: 1, due: 0 });
+  const d=deck(); if(!d) return 0;
+  const seen=new Set(d.cards.map(c=>c.front.toLowerCase()));
+  let added=0;
+  for(const c of list){
+    const k=c.front.toLowerCase();
+    if(seen.has(k)) continue;
+    seen.add(k);
+    d.cards.push({id:uid(),front:c.front,back:c.back,hint:c.hint,box:1,due:0});
     added++;
   }
   store.write(state);
   return added;
 }
 
-function article(front){
-  const m = /^(der|die|das)\b/i.exec(front.trim());
-  return m ? m[1].toLowerCase() : "";
-}
-
-function due(){
-  const now = Date.now();
-  return state.cards.filter(c => (c.due || 0) <= now);
-}
+function article(f){ const m=/^(der|die|das)\b/i.exec(f.trim()); return m?m[1].toLowerCase():""; }
 
 function buildQueue(all){
-  const pool = all ? state.cards.slice() : due();
-  for (let i = pool.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  queue = pool;
-  next();
+  const d=deck();
+  const pool=d?(all?d.cards.slice():dueIn(d)):[];
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+  queue=pool; next();
 }
-
-function next(){
-  flipped = false;
-  current = queue.shift() || null;
-  render();
-}
+function next(){ flipped=false; current=queue.shift()||null; render(); }
 
 function grade(known){
-  if (!current) return;
-  const card = state.cards.find(c => c.id === current.id);
-  if (card){
-    card.box = known ? Math.min(BOXES, card.box + 1) : 1;
-    card.due = Date.now() + DAYS[card.box - 1] * DAY;
-    if (!known) queue.push(card);          // забытое вернётся в этой же сессии
+  const d=deck(); if(!current||!d) return;
+  const card=d.cards.find(c=>c.id===current.id);
+  if(card){
+    card.box=known?Math.min(BOXES,card.box+1):1;
+    card.due=Date.now()+DAYS[card.box-1]*DAY;
+    if(!known) queue.push(card);
     store.write(state);
   }
   next();
 }
 
 /* ---------- отрисовка ---------- */
+function renderTabs(){
+  const bar=$("decks"); bar.innerHTML="";
+  for(const d of state.decks){
+    const n=dueIn(d).length;
+    const b=document.createElement("button");
+    b.className="tab"+(d.id===state.active?" on":"");
+    b.innerHTML=esc(d.name)+(n?'<span class="due">'+n+'</span>':'');
+    b.onclick=()=>{ state.active=d.id; store.write(state); buildQueue(false); if(!current) buildQueue(true); };
+    bar.appendChild(b);
+  }
+  const plus=document.createElement("button");
+  plus.className="tab icon"; plus.textContent="＋"; plus.title="Списки";
+  plus.onclick=openDecks;
+  bar.appendChild(plus);
+}
 
 function renderKasten(){
-  const k = $("kasten");
-  k.innerHTML = "";
-  const max = Math.max(1, ...[1,2,3,4,5].map(b => state.cards.filter(c => c.box === b).length));
-  for (let b = 1; b <= BOXES; b++){
-    const n = state.cards.filter(c => c.box === b).length;
-    const el = document.createElement("div");
-    el.className = "fach" + (current && current.box === b ? " active" : "");
-    el.innerHTML = '<div class="fill" style="height:' + Math.round(n / max * 78) + '%"></div>' +
-                   '<div class="lbl">' + b + '</div><div class="n">' + n + '</div>';
+  const d=deck(), k=$("kasten"); k.innerHTML="";
+  const cards=d?d.cards:[];
+  const max=Math.max(1,...[1,2,3,4,5].map(b=>cards.filter(c=>c.box===b).length));
+  for(let b=1;b<=BOXES;b++){
+    const n=cards.filter(c=>c.box===b).length;
+    const el=document.createElement("div");
+    el.className="fach"+(current&&current.box===b?" active":"");
+    el.innerHTML='<div class="fill" style="height:'+Math.round(n/max*78)+'%"></div><div class="lbl">'+b+'</div><div class="n">'+n+'</div>';
     k.appendChild(el);
   }
 }
 
 function renderCounts(){
-  const total = state.cards.length;
-  const d = due().length;
-  $("counts").textContent = total ? d + " к повторению · " + total + " всего" : "";
+  const d=deck();
+  const total=d?d.cards.length:0, n=dueIn(d).length;
+  $("counts").textContent=total?(n+" к повторению · "+total+" в списке"):"";
 }
 
 function render(){
-  renderCounts();
-  renderKasten();
+  renderTabs(); renderCounts(); renderKasten();
+  const d=deck();
 
-  if (!state.cards.length){
-    main.innerHTML = '<div class="state"><h2>Пока пусто</h2>' +
-      '<p>Вставьте список слов — приложение само разложит их по карточкам и будет возвращать забытые чаще.</p>' +
-      '<button class="btn solid" id="firstAdd">Вставить список</button></div>';
-    $("firstAdd").onclick = openSheet;
-    return;
+  if(!d){
+    main.innerHTML='<div class="state"><h2>Нет списков</h2><p>Создайте первый список — например, «Аккузатив» или лексику главы.</p><button class="btn solid" id="firstDeck">Создать список</button></div>';
+    $("firstDeck").onclick=openDecks; return;
+  }
+  if(!d.cards.length){
+    main.innerHTML='<div class="state"><h2>«'+esc(d.name)+'» пуст</h2><p>Вставьте список слов — приложение разложит их по карточкам и будет возвращать забытые чаще.</p><button class="btn solid" id="firstAdd">Вставить список</button></div>';
+    $("firstAdd").onclick=openSheet; return;
+  }
+  if(!current){
+    main.innerHTML='<div class="state"><h2>На сегодня всё</h2><p>В этом списке повторять пока нечего. Карточки вернутся по расписанию — или пройдите его целиком ещё раз.</p><button class="btn solid" id="again">Учить все</button></div>';
+    $("again").onclick=()=>buildQueue(true); return;
   }
 
-  if (!current){
-    main.innerHTML = '<div class="state"><h2>На сегодня всё</h2>' +
-      '<p>Повторять пока нечего. Следующие карточки вернутся по расписанию — или пройдите всю колоду ещё раз.</p>' +
-      '<button class="btn solid" id="again">Учить все</button></div>';
-    $("again").onclick = () => buildQueue(true);
-    return;
-  }
+  const art=article(current.front);
+  const head=art?'<span class="art">'+esc(current.front.slice(0,art.length))+'</span>'+esc(current.front.slice(art.length)):esc(current.front);
 
-  const art = article(current.front);
-  const head = art
-    ? '<span class="art">' + current.front.slice(0, art.length) + '</span>' + current.front.slice(art.length)
-    : current.front;
-
-  main.innerHTML =
-    '<div class="card" id="card" data-art="' + art + '" tabindex="0" role="button" aria-label="Показать перевод">' +
-      '<div class="term">' + head + '</div>' +
-      (flipped ? '<div class="answer">' + esc(current.back) + '</div>' +
-                 (current.hint ? '<div class="hint">' + esc(current.hint) + '</div>' : '')
-               : '<div class="tap">НАЖМИТЕ, ЧТОБЫ ПРОВЕРИТЬ</div>') +
-    '</div>' +
-    '<div class="grade">' +
-      '<button class="btn" id="bad" ' + (flipped ? "" : "disabled") + '>Не помню</button>' +
-      '<button class="btn solid" id="good" ' + (flipped ? "" : "disabled") + '>Помню</button>' +
+  main.innerHTML=
+    '<div class="card" id="card" data-art="'+art+'" tabindex="0" role="button" aria-label="Показать перевод">'+
+      '<div class="term">'+head+'</div>'+
+      (flipped?'<div class="answer">'+esc(current.back)+'</div>'+(current.hint?'<div class="hint">'+esc(current.hint)+'</div>':'')
+              :'<div class="tap">НАЖМИТЕ, ЧТОБЫ ПРОВЕРИТЬ</div>')+
+    '</div>'+
+    '<div class="grade">'+
+      '<button class="btn" id="bad" '+(flipped?"":"disabled")+'>Не помню</button>'+
+      '<button class="btn solid" id="good" '+(flipped?"":"disabled")+'>Помню</button>'+
     '</div>';
 
-  const card = $("card");
-  card.onclick = flip;
-  card.onkeydown = e => { if (e.key === " " || e.key === "Enter"){ e.preventDefault(); flip(); } };
-  if (flipped){ $("bad").onclick = () => grade(false); $("good").onclick = () => grade(true); }
+  const card=$("card");
+  card.onclick=flip;
+  card.onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } };
+  if(flipped){ $("bad").onclick=()=>grade(false); $("good").onclick=()=>grade(true); }
 }
 
-function flip(){ if (!flipped){ flipped = true; render(); } }
-function esc(s){ return s.replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c])); }
+function flip(){ if(!flipped){ flipped=true; render(); } }
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
 
 /* ---------- лист вставки ---------- */
+const sheet=$("sheet");
+function openSheet(){
+  const d=deck(); if(!d){ openDecks(); return; }
+  $("target").textContent="В список «"+d.name+"». Одна пара в строке: слово, разделитель, перевод. После перевода можно дописать « | разбор ».";
+  $("preview").textContent="";
+  sheet.showModal();
+}
+$("openImport").onclick=openSheet;
+$("cancelImport").onclick=()=>sheet.close();
+$("openAll").onclick=()=>buildQueue(true);
 
-const sheet = $("sheet");
-function openSheet(){ $("preview").textContent = ""; sheet.showModal(); }
-$("openImport").onclick = openSheet;
-$("cancelImport").onclick = () => sheet.close();
-$("openAll").onclick = () => buildQueue(true);
-
-$("paste").oninput = $("sep").onchange = () => {
-  const n = parse($("paste").value, $("sep").value).length;
-  $("preview").textContent = n ? n + " карточек" : "";
+$("paste").oninput=$("sep").onchange=()=>{
+  const n=parse($("paste").value,$("sep").value).length;
+  $("preview").textContent=n?n+" карточек":"";
 };
 
-$("doImport").onclick = () => {
-  const list = parse($("paste").value, $("sep").value);
-  if (!list.length){
-    $("preview").textContent = "Строки не разобрались — смените разделитель";
-    return;
+$("doImport").onclick=()=>{
+  const list=parse($("paste").value,$("sep").value);
+  if(!list.length){ $("preview").textContent="Строки не разобрались — смените разделитель"; return; }
+  const added=addCards(list);
+  $("paste").value=""; sheet.close();
+  buildQueue(false); if(!current) buildQueue(true);
+  $("counts").textContent="добавлено: "+added;
+  setTimeout(renderCounts,2500);
+};
+
+$("copyAll").onclick=async()=>{
+  const d=deck(); if(!d) return;
+  const text=d.cards.map(c=>c.front+"\t"+c.back+(c.hint?" | "+c.hint:"")).join("\n");
+  try{ await navigator.clipboard.writeText(text); $("preview").textContent="скопировано"; }
+  catch(e){ $("paste").value=text; $("preview").textContent="скопируйте из поля вручную"; }
+};
+
+$("wipe").onclick=()=>{
+  const d=deck(); if(!d) return;
+  if(!confirm("Удалить все карточки списка «"+d.name+"»? Сам список останется.")) return;
+  d.cards=[]; store.write(state);
+  queue=[]; current=null; sheet.close(); render();
+};
+
+/* ---------- лист списков ---------- */
+const dsheet=$("dsheet");
+function openDecks(){ renderDeckList(); dsheet.showModal(); }
+$("closeDecks").onclick=()=>dsheet.close();
+
+function renderDeckList(){
+  const ul=$("dlist"); ul.innerHTML="";
+  for(const d of state.decks){
+    const li=document.createElement("li");
+    const nm=document.createElement("span");
+    nm.className="nm"; nm.textContent=d.name;
+    const cnt=document.createElement("span");
+    cnt.className="cnt"; cnt.textContent=d.cards.length;
+    const ren=document.createElement("button"); ren.textContent="Имя";
+    ren.onclick=()=>{
+      const v=prompt("Новое название списка:",d.name);
+      if(v&&v.trim()){ d.name=v.trim(); store.write(state); renderDeckList(); render(); }
+    };
+    const del=document.createElement("button"); del.textContent="Удалить"; del.className="danger";
+    del.onclick=()=>{
+      if(!confirm("Удалить список «"+d.name+"» вместе с карточками?")) return;
+      state.decks=state.decks.filter(x=>x.id!==d.id);
+      if(state.active===d.id) state.active=state.decks[0]?state.decks[0].id:null;
+      store.write(state); renderDeckList(); buildQueue(false); if(!current) buildQueue(true);
+    };
+    li.append(nm,cnt,ren,del); ul.appendChild(li);
   }
-  const added = addCards(list);
-  $("paste").value = "";
-  sheet.close();
-  buildQueue(false);
-  if (!current) buildQueue(true);
-  $("counts").textContent = "добавлено: " + added;
-  setTimeout(renderCounts, 2500);
-};
+}
 
-$("copyAll").onclick = async () => {
-  const text = state.cards.map(c => c.front + "\t" + c.back + (c.hint ? " | " + c.hint : "")).join("\n");
-  try { await navigator.clipboard.writeText(text); $("preview").textContent = "скопировано"; }
-  catch(e){ $("paste").value = text; $("preview").textContent = "скопируйте из поля вручную"; }
+$("addDeck").onclick=()=>{
+  const v=$("newName").value.trim(); if(!v) return;
+  const d=newDeck(v);
+  state.decks.push(d); state.active=d.id;
+  store.write(state); $("newName").value="";
+  renderDeckList(); buildQueue(false); render();
 };
-
-$("wipe").onclick = () => {
-  if (!confirm("Удалить все карточки и прогресс?")) return;
-  state = { cards: [] };
-  store.write(state);
-  queue = []; current = null;
-  sheet.close();
-  render();
-};
+$("newName").onkeydown=e=>{ if(e.key==="Enter") $("addDeck").click(); };
 
 /* ---------- старт ---------- */
-
 buildQueue(false);
-if (!current && state.cards.length) buildQueue(true);
+if(!current&&deck()&&deck().cards.length) buildQueue(true);
 render();
 
-if ("serviceWorker" in navigator){
-  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
 </script>
 </body>
